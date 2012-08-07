@@ -1,19 +1,11 @@
-#t - a thought organizer
+#t - a todo aggregator
 
-t is a command-line _thought organizing interface_ that uses _vim_ and text files located in a simple directory structure. 
+>Usage: t [ ls | FILE ]
 
-Files are located in a directory and opened in vim. If the file  are executable, then t executes the file with remaining parameters.
+t is a todo-list aggregator that parses text files for todo entries.
+t helps you get things done as unobtrusively as possible, without sacrificing organization.
 
->Usage: t [ FILE ]
+>t //Displays aggregated todo list
 
-
-t can be a
-- productivity tool
-- project manager
-- logging tool
-- brainstormer
-- list ninja
-
-t started out as simply
->alias t='vim todo.txt'
+>t ls //Displays list of parsed todo lists
 
