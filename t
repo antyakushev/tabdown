@@ -73,7 +73,7 @@ if len(sys.argv) == 1:
 
 	alltodos.sort(key = operator.itemgetter(1), reverse = True)  # reverse alpha sort on todo text 
 
-	for todo in alltodos:
+	for todo in alltodos[:len(alltodos) - 1]:
 		fp = todo[0]  # first val in tuple is filepath
 		lines = todo[1]  # second val in tuple is text
 
@@ -84,6 +84,19 @@ if len(sys.argv) == 1:
 			print(todoformat(spaces + line.replace('~', "'")))
 
 		print("")
+	for todo in alltodos[len(alltodos) - 1:]:
+		fp = todo[0]  # first val in tuple is filepath
+		lines = todo[1]  # second val in tuple is text
+
+		ljustnum = lengthoflongestfp + 2
+		spaces = ''.join([' ' for num in xrange(ljustnum)])
+		print(colored(fp, 'blue') + spaces[len(fp):] + todoformat(colored(lines[0].replace('~', "'"), 'green')))
+		for line in lines[1:]:
+			print(todoformat(spaces + colored(line.replace('~', "'"), 'green')))
+
+		print("")
+
+
 else:
 	if sys.argv[1] == 'ls':
 		#filepaths.sort(key = lambda x: os.path.getmtime(x))
