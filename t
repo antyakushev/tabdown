@@ -1,108 +1,113 @@
 #!/usr/bin/env python
 #
-# t - a todo parser
+# t - a todolist parser
 
-#TODO: Create a class containter for a todo entry
-# What about too many todo list items? should I only show the top 3?
+
 import os
 import sys
-import operator
 from termcolor import colored
 
+class todo:
+	def __init__(self, priority, lines, listname):
+		self.priority = priority
+		self.lines = lines
+		self.listname = listname
 
-HOME = '/home/slee2/'
-os.chdir(HOME);
+class todolist:
+	def __init__(self, todos):
+		self.todos = todos
 
-# Parse strings
-def parse_after_todo(path):
-	todomarker = "##Todo:"
+	@classmethod
+	def fromfile(cls, filepath):
+		todomarker = "#Todo:"
 
+		lines = [line.rstrip() for line in open(filepath)]
 
-	lines = [line.rstrip() for line in open(path)]
+		isaftertodo = False
+		todos = []
+		try:
+			linebuf = []
 
-	# Significant lines and their child lines  are put in the buf list, joined, then added to tasks list
-	isaftertodo = False
-	tasks = [] # List of line groups
-	buf = []
+			for line in lines:
+				if isaftertodo:
+					if line.strip() != "":
+						numwhitespace = len(line) - len(line.lstrip())
+						if numwhitespace < 2:
+							if len(linebuf) > 0:
+								priority = linebuf[0].strip()[0]
+								tempbuf = [linebuf[0].replace(priority, '', 1)]
+								tempbuf.extend(linebuf[1:])
+								t = todo(priority, tempbuf, filepath)
+								todos.append(t)
+							linebuf = []
+						linebuf.append(line)
+				else:
+					if line == todomarker:
+						isaftertodo = True
+			priority = linebuf[0].strip()[0]
+			tempbuf = [linebuf[0].replace(priority, '', 1)]
+			tempbuf.extend(linebuf[1:])
+			t = todo(priority, tempbuf, filepath)
+			todos.append(t)
+		except IndexError:
+			pass
 
-	for line in lines:
-		if isaftertodo:
-			if line.strip() != "":
-				# Treats anything with more than leading two wspace chars as child strings
-				numwspace = len(line) - len(line.lstrip())
-				if numwspace < 2:
-					if len(buf) > 0:
-						# debug
-						tasks.append(buf)
-					buf = []
+		return cls(todos)
 
-				buf.append(line.replace("'", '~'))
-		else:
-			if line == todomarker:
-				isaftertodo = True
-	tasks.append(buf)  # append whatever is leftover
-
-	return tasks
-
-def todoformat(str):
-	spaces = len(str) - len(str.lstrip())
+	@classmethod
+	def fromfiles(cls, filepaths):
+		todos = []
+		for filepath in filepaths:
+			part = todolist.fromfile(filepath).todos
+			todos.extend(part)
+		return cls(todos)
 	
-	if str[spaces].isdigit():
-		return colored(str[:spaces+1], 'magenta') + str[spaces+1:]
+	def prioritysort(self):
+		for todo in self.todos:
+			todo.lines[0].replace("'", '~')
+		self.todos.sort(key = lambda todo: todo.priority, reverse = True)
+		for todo in self.todos:
+			todo.lines[0].replace('~', "'")
+	def koolprint(self):
+		for todo in self.todos:
+			color = 'white'
+			if todo.priority == '3':
+				color = 'blue'
+			elif todo.priority == '2':
+				color = 'green'
+			elif todo.priority == '1':
+				color = 'red'
+			elif todo.priority == '0':
+				color = 'magenta'
+			for line in todo.lines:
+				print(colored(line, color))
+			print("")
+	def currenttask(self):
+		task = self.todos[len(self.todos)-1].lines[0].strip()
+		return task
+
+def main(argv):
+	HOME = '/home/slee2/'
+	os.chdir(HOME);
+
+	f = open('.t')
+	listnames  = []
+	for line in f.readlines():
+		if line[0] != '#':
+			listnames.append(line.strip())
+	s = todolist.fromfiles(listnames)
+	s.prioritysort()
+	
+	if len(argv) > 0:
+		if argv[0] == 'now':
+			print(s.currenttask())
 	else:
-		return str
+		s.koolprint()
+
+if __name__ == '__main__':
+	main(sys.argv[1:])
 
 
 
-filepaths = [entry.strip() for entry in open(HOME+ '.t')]
 
-# t (no args) - display aggregated todo-list
-if len(sys.argv) == 1:
-	alltodos = []  #List of tuples containing list of todo strings and a filepath
-
-	lengthoflongestfp = 0;
-	for filepath in filepaths:
-		if filepath[0] != '#':  ## if not a comment
-			# Get longest filepath ( for latter formatting)
-			if len(filepath) > lengthoflongestfp:
-				lengthoflongestfp = len(filepath)
-			# Add todo entries from each file to alltodos[]
-			for todo in parse_after_todo(filepath):
-				if len(todo) > 0:
-					alltodos.append([filepath, todo])
-
-	alltodos.sort(key = operator.itemgetter(1), reverse = True)  # reverse alpha sort on todo text 
-
-	for todo in alltodos[:len(alltodos) - 1]:
-		fp = todo[0]  # first val in tuple is filepath
-		lines = todo[1]  # second val in tuple is text
-
-		ljustnum = lengthoflongestfp + 2
-		spaces = ''.join([' ' for num in xrange(ljustnum)])
-		print(colored(fp, 'blue') + spaces[len(fp):] + todoformat(lines[0].replace('~', "'")))
-		for line in lines[1:]:
-			print(todoformat(spaces + line.replace('~', "'")))
-
-		print("")
-	for todo in alltodos[len(alltodos) - 1:]:
-		fp = todo[0]  # first val in tuple is filepath
-		lines = todo[1]  # second val in tuple is text
-
-		ljustnum = lengthoflongestfp + 2
-		spaces = ''.join([' ' for num in xrange(ljustnum)])
-		print(colored(fp, 'blue') + spaces[len(fp):] + todoformat(colored(lines[0].replace('~', "'"), 'green')))
-		for line in lines[1:]:
-			print(todoformat(spaces + colored(line.replace('~', "'"), 'green')))
-
-		print("")
-
-
-else:
-	if sys.argv[1] == 'ls':
-		#filepaths.sort(key = lambda x: os.path.getmtime(x))
-		#filepaths.reverse()
-		for file in filepaths:
-			print(colored(file, 'blue'))
-
-		
 
