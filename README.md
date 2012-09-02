@@ -10,9 +10,9 @@ t supports a simple task classification system
 >
 >	1 urgent, important
 >
->	0 critically urgent!!
+>	0 current
 
 #Usage:
 >t //Prints a formatted list of todo entries
 >
->t now //Prints the first line of the bottom most task
+>t now //Prints the current task
