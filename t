@@ -84,7 +84,7 @@ class todolist:
 			print("")
 	def currenttask(self):
 		lasttodo = self.todos[len(self.todos)-1]
-		if lasttodo.priority == 0:
+		if lasttodo.priority == '0':
 			task = lasttodo.lines[0].strip()
 		else:
 			task = ""
