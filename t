@@ -78,12 +78,16 @@ class todolist:
 			elif todo.priority == '1':
 				color = 'red'
 			elif todo.priority == '0':
-				color = 'magenta'
+				color = 'cyan'
 			for line in todo.lines:
 				print(colored(line, color))
 			print("")
 	def currenttask(self):
-		task = self.todos[len(self.todos)-1].lines[0].strip()
+		lasttodo = self.todos[len(self.todos)-1]
+		if lasttodo.priority == 0:
+			task = lasttodo.lines[0].strip()
+		else:
+			task = ""
 		return task
 
 def main(argv):
