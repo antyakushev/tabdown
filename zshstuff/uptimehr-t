@@ -1,0 +1,10 @@
+#!/bin/bash
+
+TEXT=`t now`
+##| tr -d [[:space:]]`
+
+if [ "x$TEXT" = "x" ]; then #if there is no current task
+	TEXT=$(uptimehr)
+fi
+
+echo $TEXT

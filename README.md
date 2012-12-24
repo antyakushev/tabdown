@@ -1,7 +1,6 @@
 #t - a todolist parser
 
 t is a todo-list parser for todo entries in text files.
-t can parse multiple files for todo entries, but it's a good idea to keep your focus your attention to a minimum of lists.
 
 t supports a simple task classification system
 >	3 not urgent, not important
@@ -15,4 +14,14 @@ t supports a simple task classification system
 #Usage:
 >t //Prints a formatted list of todo entries
 >
->t now //Prints the current task
+>t now //Prints the current task.
+
+#Todo:
+- Make installation process easier
+- Make it completely one todo list
+- Colorize README
+
+#Installation
+- Copy t to some folder in your $PATH (eg. $HOME/bin)
+- Copy s, the example todolist, to your $HOME directory
+

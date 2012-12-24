@@ -79,9 +79,10 @@ class todolist:
 				color = 'red'
 			elif todo.priority == '0':
 				color = 'cyan'
-			for line in todo.lines:
-				print(colored(line, color))
-			print("")
+			if color != 'white':
+				for line in todo.lines:
+					print(colored(line, color))
+				print("")
 	def currenttask(self):
 		lasttodo = self.todos[len(self.todos)-1]
 		if lasttodo.priority == '0':
@@ -91,22 +92,18 @@ class todolist:
 		return task
 
 def main(argv):
-	HOME = '/home/slee2/'
-	os.chdir(HOME);
+	os.chdir(os.environ['HOME']);
 
-	f = open('.t')
-	listnames  = []
-	for line in f.readlines():
-		if line[0] != '#':
-			listnames.append(line.strip())
-	s = todolist.fromfiles(listnames)
-	s.prioritysort()
+	listnames  = ["s"] # Put names of your todo lists here
+
+	mytodolist = todolist.fromfiles(listnames)
+	mytodolist.prioritysort()
 	
 	if len(argv) > 0:
 		if argv[0] == 'now':
-			print(s.currenttask())
+			print(mytodolist.currenttask()),
 	else:
-		s.koolprint()
+		mytodolist.koolprint()
 
 if __name__ == '__main__':
 	main(sys.argv[1:])
