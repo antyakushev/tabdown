@@ -24,4 +24,4 @@ t supports a simple task classification system
 ##Todo:
 - Make installation process easier
 - Make it completely one todo list
-- Colorize README
+- Colorize README, fix example code formatting with inline HTML
