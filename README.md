@@ -11,17 +11,17 @@ t supports a simple task classification system
 >
 >	0 current
 
-#Usage:
+##Usage:
 >t //Prints a formatted list of todo entries
 >
 >t now //Prints the current task.
 
-#Todo:
-- Make installation process easier
-- Make it completely one todo list
-- Colorize README
-
-#Installation
+##Installation
 - Copy t to some folder in your $PATH (eg. $HOME/bin)
 - Copy s, the example todolist, to your $HOME directory
 
+
+##Todo:
+- Make installation process easier
+- Make it completely one todo list
+- Colorize README

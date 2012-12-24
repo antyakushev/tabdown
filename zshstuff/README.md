@@ -1,6 +1,7 @@
 Example zsh prompts:
-> ~                                                                                         2 hours, 52 minutes
-> ~/downloads                                                                                        Take a nap
+> $		2 hours, 52 minutes
+
+> $		Take a nap
 
 
 
