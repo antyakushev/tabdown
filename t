@@ -92,7 +92,7 @@ class todolist:
 		return task
 
 def main(argv):
-	os.chdir(os.environ['HOME']);
+	os.chdir(os.environ['HOME'])
 
 	listnames  = ["s"] # Put names of your todo lists here
 
@@ -100,7 +100,7 @@ def main(argv):
 	mytodolist.prioritysort()
 	
 	if len(argv) > 0:
-		if argv[0] == 'now':
+		if argv[0] == '--now':
 			print(mytodolist.currenttask()),
 	else:
 		mytodolist.koolprint()

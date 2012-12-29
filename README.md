@@ -14,7 +14,7 @@ t supports a simple task classification system
 ##Usage:
 >t //Prints a formatted list of todo entries
 >
->t now //Prints the current task.
+>t --now //Prints the current task.
 
 ##Installation
 - Copy t to some folder in your $PATH (eg. $HOME/bin)
