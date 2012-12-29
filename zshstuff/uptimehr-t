@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TEXT=`t now`
+TEXT=`t --now`
 ##| tr -d [[:space:]]`
 
 if [ "x$TEXT" = "x" ]; then #if there is no current task
