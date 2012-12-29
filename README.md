@@ -1,6 +1,7 @@
-#t - a todolist parser
+t - a todolist parser
+=====================
 
-t is a todo-list parser for todo entries in text files.
+t is a todolist parser for todo entries in text files.
 
 t supports a simple task classification system
 >	3 not urgent, not important
