@@ -17,6 +17,9 @@ t supports a simple task classification system
 >
 >t --now //Prints the current task.
 
+#Dependencies
+- termcolor module for python
+
 ##Installation
 - Copy t to some folder in your $PATH (eg. $HOME/bin)
 - Copy s, the example todolist, to your $HOME directory
