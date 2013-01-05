@@ -1,7 +1,7 @@
 t - a todolist parser
 =====================
 
-t is a todolist parser for todo entries in text files.
+t is a todolist parser for todo entries in markdown text files.
 
 t supports a simple task classification system
 >	3 not urgent, not important
@@ -11,6 +11,8 @@ t supports a simple task classification system
 >	1 urgent, important
 >
 >	0 current
+
+Now how do I balance work and play? With t (hopefully)...
 
 ##Usage:
 >t //Prints a formatted list of todo entries
@@ -26,6 +28,8 @@ t supports a simple task classification system
 
 
 ##Todo:
-- Make installation process easier
-- Make it completely one todo list
+- Make it support only one todo list (eg. no need to edit code)
+	Support default values for certain things
+- Add enviormental variables (MODE=Weekend MODE=Weekday)
+- Make it export the current task as an environmental variable
 - Colorize README, fix example code formatting with inline HTML
