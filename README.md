@@ -18,7 +18,6 @@ Now how do I balance work and play? With t (hopefully)...
 >t //Prints a formatted list of todo entries
 >
 >t --now //Prints the current task.
-
 #Dependencies
 - termcolor module for python
 
@@ -28,8 +27,11 @@ Now how do I balance work and play? With t (hopefully)...
 
 
 ##Todo:
-- Make it support only one todo list (eg. no need to edit code)
+- Make it support only one todo list (eg. no need to edit code)-
 	Support default values for certain things
 - Add enviormental variables (MODE=Weekend MODE=Weekday)
+	- Bug: parse until next #
+	- Bug: tnow doesn't work
 - Make it export the current task as an environmental variable
 - Colorize README, fix example code formatting with inline HTML
+
