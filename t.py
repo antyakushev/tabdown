@@ -19,10 +19,7 @@ class todolist:
 
 	@classmethod
 	def fromfile(cls, filepath):
-		try:
-			todomarker = "#"+os.environ['t_MODE']
-		except:
-			todomarker = "#Todo"
+		todomarker = "#Today"
 
 		lines = [line.rstrip() for line in open(filepath)]
 
@@ -110,8 +107,3 @@ def main(argv):
 
 if __name__ == '__main__':
 	main(sys.argv[1:])
-
-
-
-
-
