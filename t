@@ -1,117 +1,55 @@
-#!/usr/bin/env python
-#
-# t - a todolist parser
+#!/usr/bin/env node
+
+var fs = require('fs');
+var clc = require('cli-color');
+
+var filename = "s"
+var keyword = "#Today\n"
+process.chdir(process.env.HOME);
 
 
-import os
-import sys
-from termcolor import colored
 
-class todo:
-	def __init__(self, priority, lines, listname):
-		self.priority = priority
-		self.lines = lines
-		self.listname = listname
+fs.readFile(filename,function(err,data){
+	var input = data.toString().split(keyword);
+	input = input[input.length-1].split(/\n/);
+	var lines = []
+	for( a in input){
+		if(input[a] !== ""){
+			lines.push(input[a]);
+		}
+	}
 
-class todolist:
-	def __init__(self, todos):
-		self.todos = todos
-
-	@classmethod
-	def fromfile(cls, filepath):
-		try:
-			todomarker = "#"+os.environ['t_MODE']
-		except:
-			todomarker = "#Todo"
-
-		lines = [line.rstrip() for line in open(filepath)]
-
-		isaftertodo = False
-		todos = []
-		try:
-			linebuf = []
-
-			for line in lines:
-				if isaftertodo:
-					if line.strip() != "":
-						numwhitespace = len(line) - len(line.lstrip())
-						if numwhitespace < 2:
-							if len(linebuf) > 0:
-								priority = linebuf[0].strip()[0]
-								tempbuf = [linebuf[0].replace(priority, '', 1)]
-								tempbuf.extend(linebuf[1:])
-								t = todo(priority, tempbuf, filepath)
-								todos.append(t)
-							linebuf = []
-						linebuf.append(line)
-				else:
-					if line == todomarker:
-						isaftertodo = True
-			priority = linebuf[0].strip()[0]
-			tempbuf = [linebuf[0].replace(priority, '', 1)]
-			tempbuf.extend(linebuf[1:])
-			t = todo(priority, tempbuf, filepath)
-			todos.append(t)
-		except IndexError:
-			pass
-
-		return cls(todos)
-
-	@classmethod
-	def fromfiles(cls, filepaths):
-		todos = []
-		for filepath in filepaths:
-			part = todolist.fromfile(filepath).todos
-			todos.extend(part)
-		return cls(todos)
+	var tasks = [];
+	var counter = -1;
+	while(lines.length > 0){
+		var line = lines.shift();
+		if( /^\t[0-9]/.test(line)){
+			counter++;
+			var priority = line[1];
+			tasks[counter] = [priority, line.substring(3)]
+		}else{
+			tasks[counter].push(line.substring(1));
+		}
+	}
+	tasks.sort(function(a,b){
+		return b[0] - a[0];
+	});
+	var print = function(task){
+		var priority = task.shift();
+		var color = [clc.cyan,clc.red,clc.green, clc.blue];
+		if(priority in color){
+			while(task.length > 0){
+				console.log('\t' + color[priority](task.shift()));
+			}
+			console.log();
+		}
+	}
+	if(process.argv[2] === '--now'){
+		console.log(tasks[tasks.length-1][1]);
+	}else{
+		for(t in tasks){
+			print(tasks[t]);
+		}
+	}
 	
-	def prioritysort(self):
-		for todo in self.todos:
-			todo.lines[0].replace("'", '~')
-		self.todos.sort(key = lambda todo: todo.priority, reverse = True)
-		for todo in self.todos:
-			todo.lines[0].replace('~', "'")
-	def koolprint(self):
-		for todo in self.todos:
-			color = 'white'
-			if todo.priority == '3':
-				color = 'blue'
-			elif todo.priority == '2':
-				color = 'green'
-			elif todo.priority == '1':
-				color = 'red'
-			elif todo.priority == '0':
-				color = 'cyan'
-			if color != 'white':
-				for line in todo.lines:
-					print(colored(line, color))
-				print("")
-	def currenttask(self):
-		lasttodo = self.todos[len(self.todos)-1]
-		if lasttodo.priority == '0':
-			task = lasttodo.lines[0].strip()
-		else:
-			task = ""
-		return task
-
-def main(argv):
-	os.chdir(os.environ['HOME'])
-
-	listnames  = ["s"] # Put names of your todo lists here
-
-	mytodolist = todolist.fromfiles(listnames)
-	mytodolist.prioritysort()
-	
-	if len(argv) > 0:
-		if argv[0] == '--now':
-			print(mytodolist.currenttask()),
-	else:
-		mytodolist.koolprint()
-
-if __name__ == '__main__':
-	main(sys.argv[1:])
-
-
-
-
-
+});
