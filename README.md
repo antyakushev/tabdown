@@ -30,6 +30,7 @@ Now how do I balance work and play? With t (hopefully)...
 - Make it support only one todo list (eg. no need to edit code)-
 	Support default values for certain things
 - Add enviormental variables (MODE=Weekend MODE=Weekday)
+	- Idea: Add dates?
 	- Bug: parse until next #
 	- Bug: tnow doesn't work
 - Make it export the current task as an environmental variable
