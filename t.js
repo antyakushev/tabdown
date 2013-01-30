@@ -1,4 +1,6 @@
-#!/usr/bin/env node
+/*
+ * t - a todolist parser
+ */
 
 var fs = require('fs');
 var clc = require('cli-color');
