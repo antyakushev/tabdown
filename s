@@ -22,7 +22,7 @@ Output of example:
 
 
 
-#Todo:
+#Today:
 	0 Finish email to John
 
 	2 Do laundry

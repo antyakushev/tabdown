@@ -4,6 +4,8 @@ t - a todolist parser
 t is a todolist parser for todo entries in markdown-ish text files.
 
 t parses files with a simple urgency classification system
+> #Today:
+>
 >	3 not urgent, not important
 >
 >	2 not urgent, important
