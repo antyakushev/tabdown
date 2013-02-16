@@ -14,41 +14,41 @@ By default, t only prints first 4 tasks
 
 The Todo list would look something like this this:
 
-> #Tomorrow
+>#Tomorrow
 
-> 	Finish History Paper
+>	Finish History Paper
 
-> 		Hand it in at 10pm
+>		Hand it in at 10pm
 
-> 		DO IN LIBRARY!
+>		DO IN LIBRARY!
 
-> 	Finish math hw	
+>	Finish math hw	
 
-> #Today
+>	#Today
 
-> 	Push to Github
+>	Push to Github
 
-> 		Edit Readme!
+>		Edit Readme!
 
-> 	Read book
+>	Read book
 
-> #This line is ignored b/c it doesn't start with tab
+>#This line is ignored b/c it doesn't start with tab
 
-> 	Buy rubbing alcohol
+>	Buy rubbing alcohol
 
-> 	Make todo list
+>	Make todo list
 
-> 	This is the 5th item on the list
+>	This is the 5th item on the list
 
 And the output would look like
-> t
+>t
 
-> 	Push to Github
+>	Push to Github
 
-> 		Edit Readme!
+>		Edit Readme!
 
-> 	Read book
+>	Read book
 
-> 	Buy rubbing alcohol
+>	Buy rubbing alcohol
 
-> 	Make todo list
+>	Make todo list
