@@ -8,12 +8,14 @@ The todo list's path by default $HOME/s.
 t, the program, begins parsing the todolist after the keyword "#Today" (Look at the sample "s" file and its "sampleoutput" for a basic idea). 
 By default, t only prints the first 4 tasks.
 
+<br><br><br>
 
 ##Usage:
 >t //Prints a formatted list of todo entries
 >
 >t --now //Prints the current task, useful to pipe to other programs. I pipe it to a statusbar to keep me on track
 
+<br><br><br>
 
 ##Installation
 Add t to your a directory in your $PATH like $HOME/bin.
