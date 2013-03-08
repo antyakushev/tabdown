@@ -1,6 +1,8 @@
 t - a todolist system
 =====================
 
+<br>
+
 t is a todolist system designed to be unintrusive, quick and powerful.
 
 The todo list's path by default $HOME/s. 
