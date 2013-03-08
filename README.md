@@ -22,6 +22,8 @@ Add t to your a directory in your $PATH like $HOME/bin.
 
 Add the sample 's' file to your $HOME directory.
 
+<br>
+
 ###if you use vim:
 Add this to your .vimrc to log finished tasks with F3:
 
