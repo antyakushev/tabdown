@@ -2,7 +2,7 @@
 from subprocess import Popen, PIPE
 from random import choice
 
-ESPEAK_CMD = "ssh osh.it.cx 'espeak --stdout -s 140|aplay -t wav -'"
+ESPEAK_CMD = "ssh osh.it.cx 'espeak --stdout -s 150|aplay -t wav -'"
 NAME = "Sean"
 
 # Populate tasks
