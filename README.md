@@ -38,3 +38,8 @@ Add this to your .vimrc to log finished tasks with F3:
 ##remind.py
 remind.py gets tasks for the day, and outputs them in a sentence via e-speak.
 Add it as a cron job to get constant reminders.
+
+#TODO:
+ - Create snipmate snippets
+ - Move f3 to snipmate
+

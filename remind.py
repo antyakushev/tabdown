@@ -6,7 +6,7 @@ ESPEAK_CMD = "ssh osh.it.cx 'espeak --stdout -s 150|aplay -t wav -'"
 NAME = "Sean"
 
 # Populate tasks
-tasks = Popen(["t --list"], shell=True, stdout=PIPE).communicate()[0].decode('utf-8').split('\n')[:-1]
+tasks = Popen(["/home/slee2/.bin/t --list"], shell=True, stdout=PIPE).communicate()[0].decode('utf-8').split('\n')[:-1]
 
 # Expand tasks
 def expand(task):
