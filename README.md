@@ -9,6 +9,7 @@ Read trees with as little linguistic overhead as possible!
 Tabdown is an ultra-minimalist markup language for describing trees. It uses leading tabs as a structuring character.
 
 ###example
+####a contrived todo list
 ```
 I need to
 	eat
@@ -21,6 +22,8 @@ I want to
 	read a book
 
 ```
+
+####finding prime factorizations
 ```
 72
 	12
@@ -31,6 +34,7 @@ I want to
 	6
 		3
 		2
+```
 
 ###inspiration
 - whitespace as information carriers: inspired by _Python_
