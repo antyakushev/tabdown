@@ -42,8 +42,6 @@ I want to
 - data markup: inspired by _JSON_
 
 ##todo:
-- fix reprint2
-- port to method 2 instead of method 1 (more room for semantic info, move to json
 - make python generator for callback, perline info population
 
 
