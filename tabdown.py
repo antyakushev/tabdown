@@ -28,8 +28,8 @@ def parse(lines):
     tree = (None, []) #root node
     levels = [tree]
     for line in lines:
-        if line == '':
-            pass
+        if line.strip() == '': #ignore blank lines
+            continue
         tabs = lambda line: len(line) - len(line.lstrip('\t'))
 
         top = levels[-1]
@@ -41,7 +41,7 @@ def parse(lines):
             for counter in range(-1 * tabdiff):
                     levels.pop()
             top = levels[-1]
-        top[1].append( (line.lstrip('\t'), []) )
+        top[1].append( (line.lstrip('\t').rstrip(), []) ) #strip structuring tabs and trailing whitespace
     return tree
 
 def reprint(tree):

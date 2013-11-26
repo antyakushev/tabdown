@@ -42,3 +42,9 @@ I want to
 - data markup: inspired by _JSON_
 
 ##todo:
+- port to javascript
+ - markdown converter
+ - html converter
+- make functionally extensible; give it callbacks
+- reprogram t to use tabdown
+
