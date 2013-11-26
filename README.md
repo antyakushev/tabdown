@@ -42,5 +42,3 @@ I want to
 - data markup: inspired by _JSON_
 
 ##todo:
- - move to tuple of dicts?
- - clean up, make module
