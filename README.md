@@ -41,3 +41,6 @@ I want to
 - markup for humans, by humans: inspired by _Markdown_
 - data markup: inspired by _JSON_
 
+##todo:
+ - move to tuple of dicts?
+ - clean up, make module
