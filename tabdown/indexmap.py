@@ -24,7 +24,7 @@ def genindextree(lines):
 
         if tabdiff < 0:
             for counter in range(-1 * tabdiff):
-                oldtop = levels.pop()
+                levels.pop()
             top = levels[-1]
 
         top[str(i)] = OrderedDict()
