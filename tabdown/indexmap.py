@@ -1,30 +1,5 @@
-#!/usr/bin/env python
-
-import os
-import sys
 import re
-import json
 from collections import OrderedDict
-
-#idea: let hashtag mean when!
-#tab-delimited ordered tree todolist
-#idea: general tab delimited outliner!
-#idea: tabdown!
-"""
-a
-    b
-    c
-        d
-
-[
-    (a [
-        (b [])
-        (c [
-            (d [])
-        ])
-    ])
-]
-"""
 
 def genindextree(lines):
     """
@@ -67,18 +42,3 @@ def reprint(lines, tree):
             print("\t"*level + lines[int(k)].lstrip('\t'))
             _reprint(v, level + 1)
     _reprint(tree, 0)
-
-def main():
-    path = "s"
-    file = open(os.environ['HOME'] + '/' + path)
-
-    lines = list(filter(lambda x: not x == '', file.read().split('\n'))) #ignore blank lines
-
-    tree = genindextree(lines)
-    print(json.dumps(tree, indent=4))
-    reprint(lines, tree)
-
-if len(sys.argv) == 2:
-    None
-else:
-    main()
