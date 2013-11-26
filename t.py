@@ -10,15 +10,31 @@ from collections import OrderedDict
 #tab-delimited ordered tree todolist
 #idea: general tab delimited outliner!
 #idea: tabdown!
+"""
+a
+    b
+    c
+        d
 
-def parse(lines):
+[
+    (a [
+        (b [])
+        (c [
+            (d [])
+        ])
+    ])
+]
+"""
+
+def genindextree(lines):
     """
-    Returns a tree (OrderedDict of OrderedDicts) from a tab-marked list of lines.
+    Returns a tree (OrderedDict of OrderedDicts) of line indicies from a tab-marked list of lines.
     Goes through lines line-by-line.
     """
+    _lines = enumerate(lines)
     tree = OrderedDict()
     levels = [tree]
-    for line in lines:
+    for i,line in _lines:
         tabs = lambda line: len(line) - len(line.lstrip('\t'))
 
         top = levels[-1]
@@ -32,25 +48,25 @@ def parse(lines):
             top = levels[-1] #top = newtop
 
         if tabdiff < 0:
-            for i in range(-1 * tabdiff):
+            for counter in range(-1 * tabdiff):
                 oldtop = levels.pop()
             top = levels[-1]
 
-        top[line.lstrip('\t')] = OrderedDict()
+        top[str(i)] = OrderedDict()
     return tree
 
-def reprint(tree):
+def reprint(lines, tree):
     """
     Prints a tree (OrderedDict of OrderedDicts) marked by tabs 
     Depth-first, recursive traversal of tree
     """
-    def _testprint(tree, level):
+    def _reprint(tree, level):
         if len(tree) == 0:
             return
         for k,v in tree.items():
-            print("\t"*level + k)
-            _testprint(v, level + 1)
-    _testprint(tree, 0)
+            print("\t"*level + lines[int(k)].lstrip('\t'))
+            _reprint(v, level + 1)
+    _reprint(tree, 0)
 
 def main():
     path = "s"
@@ -58,11 +74,9 @@ def main():
 
     lines = list(filter(lambda x: not x == '', file.read().split('\n'))) #ignore blank lines
 
-    tree = parse(lines)
-
-
-    print(json.dumps(tree,indent=4))
-    reprint(tree)
+    tree = genindextree(lines)
+    print(json.dumps(tree, indent=4))
+    reprint(lines, tree)
 
 if len(sys.argv) == 2:
     None

@@ -8,7 +8,7 @@ Read trees with as little linguistic overhead as possible!
 ###what
 Tabdown is an ultra-minimalist markup language for describing trees. It uses leading tabs as a structuring character.
 
-###example
+###examples
 ####a contrived todo list
 ```
 I need to
