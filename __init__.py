@@ -28,7 +28,7 @@ def on_parse(func):
     return wrapper
 
 @on_parse
-def basic(line):
+def basic_parse(line):
     """basic data populator
     returns the line contents in the "text" field
     """
