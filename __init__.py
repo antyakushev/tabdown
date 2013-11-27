@@ -1,5 +1,3 @@
-import re
-
 def on_parse(func):
     """Decorator that returns a tree from a tab-structured list of lines
     Takes a parsing function that populates node information based on a line (string)
