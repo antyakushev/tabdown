@@ -1,6 +1,8 @@
-def on_parse(func):
+def on_parse(func, struct_char='\t'):
     """Decorator that returns a tree from a tab-structured list of lines
     Takes a parsing function that populates node information based on a line (string)
+
+    change struct_char to whatever structuring character (tab, by default)
 
     Populates tree line by line.
     """
@@ -11,7 +13,7 @@ def on_parse(func):
             if line.strip() == "": #ignore blank lines
                 continue
 
-            tabs = lambda line: len(line) - len(line.lstrip('\t'))
+            tabs = lambda line: len(line) - len(line.lstrip(struct_char))
 
             top = levels[-1]
             tabdiff = tabs(line) - len(levels) + 1
