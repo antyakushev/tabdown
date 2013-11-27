@@ -1,4 +1,5 @@
 import os
+import json
 import tabdown
 if __name__ == "__main__":
     path = "s"
@@ -6,6 +7,5 @@ if __name__ == "__main__":
 
     lines = file.readlines()
 
-    tree = tabdown.parse(lines)
-    tabdown.reprint(tree)
-
+    tree = tabdown.markdown(lines)
+    print(json.dumps(tree, indent=4))

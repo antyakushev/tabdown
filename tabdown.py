@@ -1,30 +1,43 @@
-def parse(lines):
-    """Returns tree from a tab-structured list of lines
+import re
+
+def on_parse(func):
+    """Decorator that returns a tree from a tab-structured list of lines
+    Takes a parsing function that populates node information based on a line (string)
+
     Populates tree line by line.
     """
+    def wrapper(lines):
+        tree = {"children": []}
+        levels = [tree]
+        for line in lines:
+            if line.strip() == "": #ignore blank lines
+                continue
 
-    tree = {"children": []}
-    levels = [tree]
-    for line in lines:
-        if line.strip() == "": #ignore blank lines
-            continue
+            tabs = lambda line: len(line) - len(line.lstrip('\t'))
 
-        tabs = lambda line: len(line) - len(line.lstrip('\t'))
+            top = levels[-1]
+            tabdiff = tabs(line) - len(levels) + 1
+            if tabdiff > 0:
+                top["children"][-1]["children"] = []
+                levels.append(top["children"][-1])
+            elif tabdiff < 0:
+                for counter in range(-1 * tabdiff):
+                    levels.pop()
+            top = levels[-1]
+            node = func(line.lstrip('\t').rstrip())
+            top["children"].append(node)
+        return tree
+    return wrapper
 
-        top = levels[-1]
-        tabdiff = tabs(line) - len(levels) + 1
-        if tabdiff > 0:
-            top["children"][-1]["children"] = []
-            levels.append(top["children"][-1])
-        elif tabdiff < 0:
-            for counter in range(-1 * tabdiff):
-                levels.pop()
-        top = levels[-1]
-        node = {
-                "text": line.lstrip('\t').rstrip(),
-                }
-        top["children"].append(node)
-    return tree
+@on_parse
+def basic(line):
+    """basic data populator
+    returns the line contents in the "text" field
+    """
+    return {
+            "text": line
+            }
+
 
 def reprint(tree):
     """Prints a tab-structured list of lines corresponding to a given tree
