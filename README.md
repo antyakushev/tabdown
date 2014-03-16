@@ -40,3 +40,8 @@ I want to
 - whitespace as information carriers: inspired by _Python_
 - markup for humans, by humans: inspired by _Markdown_
 - data markup: inspired by _JSON_
+
+###install
+```
+npm install tabdown
+```
