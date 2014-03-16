@@ -1,0 +1,16 @@
+{
+	"name": "tabdown",
+	"version": "0.0.0",
+	"description": "A tab-structured tree markup language.",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/freshdried/tabdown.git"
+	},
+	"author": {
+		"name": "Sean Lee",
+		"email": "freshdried@gmail.com",
+		"url": "http://sean.lee.mx"
+	},
+	"license": "MIT"
+}
