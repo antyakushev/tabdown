@@ -53,8 +53,18 @@ exports.parse = function(lines, populate, marker) {
 	}
 	return tree;
 }
-exports.print = function (tree){
-	function _print(node) {
+exports.traverse = function (tree, cb){
+	function _traverse(node) {
+		cb(node);
+		for (var i = 0; i < node.children.length; i++) {
+			_traverse(node.children[i]);
+		}
+	}
+	_traverse(tree);
+}
+
+exports.print = function(tree) {
+	exports.traverse(tree, function(node) {
 		if (node.data.type !== 'root') {
 			var string = "";
 			for (var i = 0; i < node.data.depth; i++) {
@@ -63,9 +73,5 @@ exports.print = function (tree){
 			string += node.data.line;
 			console.log(string);
 		}
-		for (var i = 0; i < node.children.length; i++) {
-			_print(node.children[i]);
-		}
-	}
-	_print(tree);
+	});
 }

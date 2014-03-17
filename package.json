@@ -1,6 +1,6 @@
 {
 	"name": "tabdown",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "A tab-structured tree markup language.",
 	"main": "index.js",
 	"repository": {
