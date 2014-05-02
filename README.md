@@ -1,5 +1,5 @@
 #tabdown
-_tabdown is for humans! (and also computers)_
+_tabdown is for humans!_
 
 Write trees with as little syntactic overhead as possible!
 
