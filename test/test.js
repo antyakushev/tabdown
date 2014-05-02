@@ -1,7 +1,7 @@
 var tabdown = require('../');
 var fs = require('fs');
 
-fs.readFile('test/test.tabdown', function(err, data){
+fs.readFile('test/list.td', function(err, data){
 	if (err) throw err;
 	var lines = data.toString().split('\n');
 	console.log("\n> printing input:\n");
@@ -12,4 +12,7 @@ fs.readFile('test/test.tabdown', function(err, data){
 
 	console.log("\n> printing reconstructed:\n");
 	tabdown.print(tree);
+	
+	console.log("\n> traversing and printing:\n");
+	tabdown.traverse(tree, function(node) {console.log(node.depth, node.data)});
 })

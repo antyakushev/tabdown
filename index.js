@@ -52,18 +52,19 @@ exports.traverse = function (tree, cb){
 			_traverse(node.children[i]);
 		}
 	}
-	_traverse(tree);
+
+	for (var i = 0; i < tree.children.length; i++) {
+		_traverse(tree.children[i]);
+	}
 }
 
 exports.print = function(tree) {
 	exports.traverse(tree, function(node) {
-		if (node.depth !== -1) {
-			var string = "";
-			for (var i = 0; i < node.depth; i++) {
-				string += "\t";
-			}
-			string += node.data;
-			console.log(string);
+		var string = "";
+		for (var i = 0; i < node.depth; i++) {
+			string += "\t";
 		}
+		string += node.data;
+		console.log(string);
 	});
 }
