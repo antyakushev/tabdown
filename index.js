@@ -1,16 +1,15 @@
-exports.parse = function(lines, populate, marker) {
-	var populate = populate || function(obj) { return obj;};
+exports.parse = function(lines, marker) {
+	var populatefn = populatefn || function(obj) { return obj;};
 	var marker = marker || '\t';
 
-	var TreeNode = function(data) {
+	var TreeNode = function(data, depth) {
 		this.data = data;
+		this.depth = depth;
 		this.parent = null;
 		this.children = [];
 	}
-	var tree = new TreeNode({
-		'type': 'root',
-	    	'depth': -1
-	});
+	var tree = new TreeNode(null, -1);
+
 	var levels = [tree];
 
 	for (var i = 0; i < lines.length; i++) {
@@ -20,7 +19,7 @@ exports.parse = function(lines, populate, marker) {
 
 
 		for (var j = 0; j < line.length; j++) {
-			var ch = line[j];;
+			var ch = line[j];
 			if ((ch == '\t')) {
 				tabcount += 1;
 			}else if (/[^\s]/.test(ch)){
@@ -29,23 +28,16 @@ exports.parse = function(lines, populate, marker) {
 			}
 		}
 		if (hascontent) { //then add node to tree
-			var content = {
-				'line': line.substring(tabcount),
-				'type': "line",
-			};
-			//populate later (with depth also)
-
-			var node = new TreeNode(content);
-			node.tabcount = tabcount;
 
 			function topnode() {
 		       		return levels[levels.length - 1];
 			}
-			while(node.tabcount - topnode().tabcount <= 0) {
+			while(tabcount - topnode().tabcount <= 0) {
 				levels.pop();
 			}
-			node.data.depth = levels.length - 1;
-			node = populate(node);
+			var depth = levels.length - 1;
+			var node = new TreeNode(line.substring(tabcount), depth);
+			node.tabcount = tabcount;
 			node.parent = topnode();
 			node.parent.children.push(node);
 			levels.push(node);
@@ -65,12 +57,12 @@ exports.traverse = function (tree, cb){
 
 exports.print = function(tree) {
 	exports.traverse(tree, function(node) {
-		if (node.data.type !== 'root') {
+		if (node.depth !== -1) {
 			var string = "";
-			for (var i = 0; i < node.data.depth; i++) {
+			for (var i = 0; i < node.depth; i++) {
 				string += "\t";
 			}
-			string += node.data.line;
+			string += node.data;
 			console.log(string);
 		}
 	});

@@ -1,16 +1,22 @@
 {
-	"name": "tabdown",
-	"version": "0.0.2",
-	"description": "A tab-structured tree markup language.",
-	"main": "index.js",
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/freshdried/tabdown.git"
-	},
-	"author": {
-		"name": "Sean Lee",
-		"email": "freshdried@gmail.com",
-		"url": "http://sean.lee.mx"
-	},
-	"license": "MIT"
+  "name": "tabdown",
+  "version": "0.0.3",
+  "description": "A tab-structured tree markup language.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/freshdried/tabdown.git"
+  },
+  "author": "Sean Lee <freshdried@gmail.com> (http://sean.lee.mx)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/freshdried/tabdown/issues"
+  },
+  "homepage": "https://github.com/freshdried/tabdown",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test/test.js"
+  }
 }

@@ -46,4 +46,4 @@ I want to
 npm install tabdown
 ```
 ###todo
- - make tests less shady
+- document usage
