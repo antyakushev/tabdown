@@ -12,22 +12,25 @@ exports.parse = function(lines, marker) {
 
 	var levels = [tree];
 
-	for (var i = 0; i < lines.length; i++) {
-		var line = lines[i];
-		var hascontent = false;
-		var tabcount = 0;
-
-
-		for (var j = 0; j < line.length; j++) {
-			var ch = line[j];
+	function countTabs(line) {
+		count = -1; // no content
+		for (var i = 0; i < line.length; i++) {
+			var ch = line[i];
 			if ((ch == '\t')) {
-				tabcount += 1;
+				count += 1;
 			}else if (/[^\s]/.test(ch)){
-				hascontent = true;
-				break;
+				return 0;
 			}
 		}
-		if (hascontent) { //then add node to tree
+		return count;
+	}
+
+	for (var i = 0; i < lines.length; i++) {
+		var line = lines[i];
+
+		var tabcount = countTabs(line);
+
+		if (tabcount >= 0) { //then add node to tree
 
 			function topnode() {
 		       		return levels[levels.length - 1];
@@ -45,6 +48,7 @@ exports.parse = function(lines, marker) {
 	}
 	return tree;
 }
+
 exports.traverse = function (tree, cb){
 	function _traverse(node) {
 		cb(node);
