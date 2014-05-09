@@ -28,15 +28,16 @@ exports.parse = function(lines, marker) {
 		if (lindex<lines.length) {
 			do {
 				var line = lines[lindex],
-					tabcount = countTabs(line);
-				//console.log(level, tabcount);
-				if (lindex<lines.length-1 && (tabcount == level || tabcount < 0)){
+					tabcount = countTabs(line),
+					data = line.substring(tabcount);
+				//console.log(level, tabcount, data);
+				
+				if (tabcount == level || tabcount < 0){
 					lindex++;
 					if (tabcount == level) {
 						var selfChildren;
 						grandchildren = parseChildren(level+1);
 						var child = {};
-						var data = line.substring(tabcount);
 						child[data] = grandchildren;
 						Object.defineProperty(child, "data", {
 							enumerable: false,
@@ -50,7 +51,7 @@ exports.parse = function(lines, marker) {
 					}
 				} 
 											
-			} while (tabcount >= level);
+			} while (tabcount >= level && lindex<lines.length);
 		}
 		return children;
 	}
