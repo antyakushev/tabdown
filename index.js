@@ -4,6 +4,10 @@ exports.parse = function(lines, marker) {
 
 	var tree = [];
 
+	tree.toString = function(){
+		JSON.stringify(tree);
+	}
+
 	function countTabs(line) {
 		var count = 0; 
 		for (var i = 0; i < line.length; i++) {
