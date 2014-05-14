@@ -13,16 +13,16 @@ exports.parse = function(lines, marker) {
 	var levels = [tree];
 
 	function countTabs(line) {
-		count = -1; // no content
+		var count = 0; 
 		for (var i = 0; i < line.length; i++) {
 			var ch = line[i];
 			if ((ch == '\t')) {
 				count += 1;
 			}else if (/[^\s]/.test(ch)){
-				return 0;
+				return count;
 			}
 		}
-		return count;
+		return -1; // no content
 	}
 
 	for (var i = 0; i < lines.length; i++) {
