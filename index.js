@@ -2,12 +2,26 @@ exports.parse = function(lines, marker) {
 	var populatefn = populatefn || function(obj) { return obj;};
 	var marker = marker || '\t';
 
+	function addHiddenProperties(scope, props) {
+		for (p in props) {
+			Object.defineProperty(scope, p, {enumerable: false, value: props[p]});
+		}
+	}	
 	var TreeNode = function(data, depth) {
-		this.data = data;
-		this.depth = depth;
 		this.parent = null;
-		this.children = [];
+		addHiddenProperties(this, {
+			'data':data,
+			'depth':depth,
+			'parent':null,
+			'children':[]
+		});
+		this[data||'root']=this.children;
 	}
+	
+	TreeNode.prototype.toString = function() { 
+		return JSON.stringify(this.children);
+	}
+
 	var tree = new TreeNode(null, -1);
 
 	var levels = [tree];
@@ -35,12 +49,11 @@ exports.parse = function(lines, marker) {
 			function topnode() {
 		       		return levels[levels.length - 1];
 			}
-			while(tabcount - topnode().tabcount <= 0) {
+			while(tabcount - topnode().depth <= 0) {
 				levels.pop();
 			}
 			var depth = levels.length - 1;
 			var node = new TreeNode(line.substring(tabcount), depth);
-			node.tabcount = tabcount;
 			node.parent = topnode();
 			node.parent.children.push(node);
 			levels.push(node);
@@ -71,4 +84,8 @@ exports.print = function(tree) {
 		string += node.data;
 		console.log(string);
 	});
+}
+
+exports.toJSON = function(tree) {
+	return JSON.stringify(tree.children);
 }
